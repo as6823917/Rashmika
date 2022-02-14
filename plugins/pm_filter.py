@@ -36,17 +36,19 @@ async def give_filter(client, message):
     if k == False:
         await auto_filter(client, message)
 
-async def autodeleter(client, message):
+
+@Client.on_callback_query(filters.regex(r"^next"))
+
+async def autodeleter(bot, query):
     try:
        if message.from_user.id in ADMINS:
           return
        else:
           await asyncio.sleep(20)
-          await Client.delete_messages(message.chat.id, message.message_id)
+          await query.delete_messages(message.chat.id, message.message_id)
     except Exception as e:
        print(e)
 
-@Client.on_callback_query(filters.regex(r"^next"))
 async def next_page(bot, query):
     ident, req, key, offset = query.data.split("_")
     if int(req) not in [query.from_user.id, 0]:
