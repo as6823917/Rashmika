@@ -36,13 +36,13 @@ async def give_filter(client, message):
     if k == False:
         await auto_filter(client, message)
 
-async def autodeleter(user, message):
+async def autodeleter(client, message):
     try:
        if message.from_user.id in ADMINS:
           return
        else:
           await asyncio.sleep(20)
-          await Bot.delete_messages(message.chat.id, message.message_id)
+          await Client.delete_messages(message.chat.id, message.message_id)
     except Exception as e:
        print(e)
 
